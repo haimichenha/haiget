@@ -18,115 +18,6 @@
 
 /**
  * Configuration object mapping platform prefixes to their base URLs.
- *
- * Supports 40+ platforms across multiple categories:
- *
- * **Code Repositories & Version Control:**
- * - `gh` - GitHub (github.com)
- * - `gist` - GitHub Gist (gist.github.com)
- * - `gl` - GitLab (gitlab.com)
- * - `gitea` - Gitea (gitea.com)
- * - `codeberg` - Codeberg (codeberg.org)
- * - `sf` - SourceForge (sourceforge.net)
- * - `aosp` - Android Open Source Project (android.googlesource.com)
- * - `hf` - Hugging Face (huggingface.co)
- * - `civitai` - Civitai (civitai.com)
- *
- * **Package Managers:**
- * - `npm` - Node Package Manager (registry.npmjs.org)
- * - `pypi` - Python Package Index (pypi.org)
- * - `pypi-files` - PyPI file hosting (files.pythonhosted.org)
- * - `conda` - Anaconda packages (repo.anaconda.com)
- * - `conda-community` - Community Conda (conda.anaconda.org)
- * - `maven` - Maven Central (repo1.maven.org)
- * - `apache` - Apache downloads (downloads.apache.org)
- * - `gradle` - Gradle plugins (plugins.gradle.org)
- * - `homebrew` - Homebrew repositories (github.com/Homebrew)
- * - `homebrew-api` - Homebrew API (formulae.brew.sh/api)
- * - `homebrew-bottles` - Homebrew bottles (ghcr.io)
- * - `rubygems` - RubyGems (rubygems.org)
- * - `cran` - R CRAN (cran.r-project.org)
- * - `cpan` - Perl CPAN (cpan.org)
- * - `ctan` - TeX CTAN (tug.ctan.org)
- * - `golang` - Go proxy (proxy.golang.org)
- * - `nuget` - NuGet (api.nuget.org)
- * - `crates` - Rust crates.io (crates.io)
- * - `packagist` - PHP Packagist (repo.packagist.org)
- *
- * **Linux Distributions:**
- * - `debian` - Debian packages (deb.debian.org)
- * - `ubuntu` - Ubuntu archives (archive.ubuntu.com)
- * - `fedora` - Fedora downloads (dl.fedoraproject.org)
- * - `rocky` - Rocky Linux (download.rockylinux.org)
- * - `opensuse` - openSUSE downloads (download.opensuse.org)
- * - `arch` - Arch Linux mirrors (geo.mirror.pkgbuild.com)
- *
- * **Other Resources:**
- * - `arxiv` - arXiv papers (arxiv.org)
- * - `fdroid` - F-Droid Android apps (f-droid.org)
- * - `jenkins` - Jenkins plugins (updates.jenkins.io)
- *
- * **AI Inference Providers (prefix: ip-):**
- * - `ip-openai` - OpenAI API
- * - `ip-anthropic` - Claude API
- * - `ip-gemini` - Google Gemini API
- * - `ip-vertexai` - Google Vertex AI
- * - `ip-cohere` - Cohere API
- * - `ip-mistralai` - Mistral AI
- * - `ip-xai` - X.AI
- * - `ip-githubmodels` - GitHub Models
- * - `ip-nvidiaapi` - NVIDIA API
- * - `ip-perplexity` - Perplexity AI
- * - `ip-braintrust` - Braintrust
- * - `ip-groq` - Groq
- * - `ip-cerebras` - Cerebras
- * - `ip-sambanova` - SambaNova
- * - `ip-siray` - Siray AI
- * - `ip-huggingface` - Hugging Face Inference
- * - `ip-together` - Together AI
- * - `ip-replicate` - Replicate
- * - `ip-fireworks` - Fireworks AI
- * - `ip-nebius` - Nebius AI
- * - `ip-jina` - Jina AI
- * - `ip-voyageai` - Voyage AI
- * - `ip-falai` - Fal AI
- * - `ip-novita` - Novita AI
- * - `ip-burncloud` - BurnCloud AI
- * - `ip-openrouter` - OpenRouter
- * - `ip-poe` - Poe
- * - `ip-featherlessai` - Featherless AI
- * - `ip-hyperbolic` - Hyperbolic
- *
- * **Container Registries (prefix: cr-):**
- * - `cr-docker` - Docker Hub (registry-1.docker.io)
- * - `cr-quay` - Quay.io
- * - `cr-gcr` - Google Container Registry
- * - `cr-mcr` - Microsoft Container Registry
- * - `cr-ecr` - AWS Elastic Container Registry (public)
- * - `cr-ghcr` - GitHub Container Registry
- * - `cr-gitlab` - GitLab Container Registry
- * - `cr-redhat` - Red Hat Registry
- * - `cr-oracle` - Oracle Container Registry
- * - `cr-cloudsmith` - Cloudsmith Docker Registry
- * - `cr-digitalocean` - DigitalOcean Container Registry
- * - `cr-vmware` - VMware Harbor
- * - `cr-k8s` - Kubernetes Registry
- * - `cr-heroku` - Heroku Container Registry
- * - `cr-suse` - SUSE Registry
- * - `cr-opensuse` - openSUSE Registry
- * - `cr-gitpod` - Gitpod Registry
- * @type {{ [key: string]: string }}
- * @example
- * // Access GitHub base URL
- * const githubUrl = PLATFORMS.gh; // 'https://github.com'
- * @example
- * // Access OpenAI API base URL
- * const openaiUrl = PLATFORMS['ip-openai']; // 'https://api.openai.com'
- * @example
- * // Check if platform exists
- * if (PLATFORMS.npm) {
- *   console.log('npm registry available');
- * }
  */
 export const PLATFORMS = {
   // Code Repositories & Version Control
@@ -174,7 +65,7 @@ export const PLATFORMS = {
   fdroid: 'https://f-droid.org',
   jenkins: 'https://updates.jenkins.io',
 
-  // AI Inference Providers
+  // AI Inference Providers - Official
   'ip-openai': 'https://api.openai.com',
   'ip-anthropic': 'https://api.anthropic.com',
   'ip-gemini': 'https://generativelanguage.googleapis.com',
@@ -204,8 +95,15 @@ export const PLATFORMS = {
   'ip-poe': 'https://api.poe.com',
   'ip-featherlessai': 'https://api.featherless.ai',
   'ip-hyperbolic': 'https://api.hyperbolic.xyz',
+
+  // AI Inference Providers - Third Party Proxies
   'ip-wzw': 'https://wzw.pp.ua',
   'ip-anyrouter': 'https://anyrouter.top',
+  'ip-anycn': 'https://a-ocnfniawgw.cn-shanghai.fcapp.run',
+  'ip-x666': 'https://x666.me',
+  'ip-feisakura': 'https://api.feisakura.fun',
+  'ip-elysiver': 'https://elysiver.h-e.top',
+  'ip-b4u': 'https://b4u.qzz.io',
 
   // Container Registries
   'cr-docker': 'https://registry-1.docker.io',
@@ -239,124 +137,44 @@ export const SORTED_PLATFORMS = Object.keys(PLATFORMS).sort((a, b) => {
 
 /**
  * Unified path transformation function that converts request paths to platform-specific URLs.
- *
- * This function performs two primary operations:
- * 1. Strips the platform prefix from the request path
- * 2. Applies platform-specific transformations (crates.io, Homebrew, Jenkins)
- *
- * The function handles special cases for platforms that require API path prefixes or
- * URL structure modifications to match their upstream API conventions.
- * @param {string} path - The original request path including platform prefix (e.g., '/gh/user/repo')
- * @param {string} platformKey - The platform key from PLATFORMS object (e.g., 'gh', 'crates', 'npm')
- * @returns {string} The transformed path ready for upstream request
- * @example
- * // Basic transformation - strips platform prefix
- * transformPath('/gh/torvalds/linux', 'gh')
- * // Returns: '/torvalds/linux'
- * @example
- * // crates.io API transformation - adds API prefix
- * transformPath('/crates/serde/1.0.0/download', 'crates')
- * // Returns: '/api/v1/crates/serde/1.0.0/download'
- * @example
- * // crates.io search endpoint
- * transformPath('/crates/?q=tokio', 'crates')
- * // Returns: '/api/v1/crates?q=tokio'
- * @example
- * // Jenkins update center transformation
- * transformPath('/jenkins/update-center.json', 'jenkins')
- * // Returns: '/current/update-center.json'
- * @example
- * // Homebrew API paths (pass-through)
- * transformPath('/homebrew/api/formula/git.json', 'homebrew-api')
- * // Returns: '/formula/git.json'
- * @example
- * // Unknown platform (no transformation)
- * transformPath('/unknown/path', 'nonexistent')
- * // Returns: '/unknown/path'
- * @example
- * // Multi-part platform key (hyphens converted to slashes)
- * transformPath('/ip/openai/v1/chat/completions', 'ip-openai')
- * // Returns: '/v1/chat/completions'
  */
 export function transformPath(path, platformKey) {
-  // Return original path if platform doesn't exist
   if (!PLATFORMS[platformKey]) {
     return path;
   }
 
-  // Convert platform key to path prefix (e.g., 'ip-openai' -> '/ip/openai/')
   const prefix = `/${platformKey.replace(/-/g, '/')}/`;
   let transformedPath = path.replace(
     new RegExp(`^${prefix.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}`),
     '/'
   );
 
-  /**
-   * Special handling for crates.io API paths
-   *
-   * The Rust package registry requires an `/api/v1/crates` prefix for all API endpoints.
-   * This transformation adds the necessary prefix to match crates.io's API structure.
-   *
-   * Transformations:
-   * - `/serde/1.0.0/download` -> `/api/v1/crates/serde/1.0.0/download`
-   * - `/serde` -> `/api/v1/crates/serde`
-   * - `/?q=query` -> `/api/v1/crates?q=query`
-   */
+  // Special handling for crates.io API paths
   if (platformKey === 'crates') {
     if (transformedPath.startsWith('/')) {
       if (transformedPath === '/' || transformedPath.startsWith('/?')) {
-        // Search endpoint: /?q=query -> /api/v1/crates?q=query
         transformedPath = transformedPath.replace('/', '/api/v1/crates');
       } else {
-        // Crate-specific endpoints: /serde -> /api/v1/crates/serde
         transformedPath = `/api/v1/crates${transformedPath}`;
       }
     }
   }
 
-  /**
-   * Special handling for Homebrew API paths
-   *
-   * Homebrew API paths are already in the correct format (e.g., /formula/git.json),
-   * so we simply strip the prefix and return the path as-is.
-   *
-   * Supported endpoints:
-   * - `/formula/{name}.json` - Formula metadata
-   * - `/cask/{name}.json` - Cask metadata
-   */
+  // Special handling for Homebrew API paths
   if (platformKey === 'homebrew-api') {
     if (transformedPath.startsWith('/')) {
       return transformedPath;
     }
   }
 
-  /**
-   * Special handling for Homebrew bottles
-   *
-   * Homebrew bottles are served from GitHub Container Registry (ghcr.io).
-   * The paths follow OCI registry format (/v2/...) and are passed through as-is.
-   *
-   * Example: `/v2/homebrew/core/git/manifests/2.39.0`
-   */
+  // Special handling for Homebrew bottles
   if (platformKey === 'homebrew-bottles') {
     if (transformedPath.startsWith('/')) {
       return transformedPath;
     }
   }
 
-  /**
-   * Special handling for Jenkins plugins
-   *
-   * Jenkins update center requires paths to be prefixed with `/current/` for
-   * the default update center. Experimental and download paths are preserved.
-   *
-   * Transformations:
-   * - `/update-center.json` -> `/current/update-center.json`
-   * - `/update-center.actual.json` -> `/current/update-center.actual.json`
-   * - `/experimental/...` -> `/experimental/...` (preserved)
-   * - `/download/...` -> `/download/...` (preserved)
-   * - Other paths -> `/current/{path}`
-   */
+  // Special handling for Jenkins plugins
   if (platformKey === 'jenkins') {
     if (transformedPath.startsWith('/')) {
       if (transformedPath === '/update-center.json') {
@@ -368,23 +186,14 @@ export function transformPath(path, platformKey) {
         transformedPath.startsWith('/download/') ||
         transformedPath.startsWith('/current/')
       ) {
-        // Keep experimental, download, and current paths as-is
         return transformedPath;
       } else {
-        // For other paths, assume they are relative to current
         return `/current${transformedPath}`;
       }
     }
   }
 
-  /**
-   * Special handling for Homebrew repositories
-   *
-   * Homebrew repositories are Git repos on GitHub (github.com/Homebrew).
-   * Paths are passed through as-is to access repos like homebrew-core, homebrew-cask.
-   *
-   * Example: `/brew`, `/homebrew-core`, `/homebrew-cask`
-   */
+  // Special handling for Homebrew repositories
   if (platformKey === 'homebrew') {
     if (transformedPath.startsWith('/')) {
       return transformedPath;
