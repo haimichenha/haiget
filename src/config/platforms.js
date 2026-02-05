@@ -18,6 +18,10 @@
 
 /**
  * Configuration object mapping platform prefixes to their base URLs.
+ * 
+ * NOTE: For AI providers, the base URL should NOT include /v1 suffix.
+ * The /v1 will be part of the request path.
+ * Example: 'ip-x666': 'https://x666.me' (not 'https://x666.me/v1')
  */
 export const PLATFORMS = {
   // Code Repositories & Version Control
@@ -97,6 +101,7 @@ export const PLATFORMS = {
   'ip-hyperbolic': 'https://api.hyperbolic.xyz',
 
   // AI Inference Providers - Third Party Proxies
+  // URL format: https://domain (without /v1, the path will include /v1)
   'ip-wzw': 'https://wzw.pp.ua',
   'ip-anyrouter': 'https://anyrouter.top',
   'ip-anycn': 'https://a-ocnfniawgw.cn-shanghai.fcapp.run',
