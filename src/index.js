@@ -139,8 +139,8 @@ async function handleRequest(request, env, ctx) {
                 /** @type {Cache | null} */
                 // @ts-ignore - Cloudflare Workers cache API
                 const cache =
-                  typeof caches !== 'undefined' && /** @type {any} */ (caches).default // eslint-disable-line jsdoc/reject-any-type
-                    ? /** @type {any} */ (caches).default // eslint-disable-line jsdoc/reject-any-type
+                  typeof caches !== 'undefined' && /** @type {any} */ (caches).default
+                    ? /** @type {any} */ (caches).default
                     : null;
 
                 if (
@@ -167,7 +167,7 @@ async function handleRequest(request, env, ctx) {
                       const rangeHeader = request.headers.get('Range');
                       if (rangeHeader) {
                         const fullContentKey = new Request(targetUrl, {
-                          method: 'GET', // Always use GET method for cache key consistency
+                          method: 'GET',
                           headers: new Headers(
                             [...request.headers.entries()].filter(
                               ([k]) => k.toLowerCase() !== 'range'
@@ -194,12 +194,18 @@ async function handleRequest(request, env, ctx) {
                     redirect: 'follow'
                   };
 
-                  // Add body for POST/PUT/PATCH/DELETE requests (Git/Docker/AI/HF operations)
+                  // FIX: Read request body into ArrayBuffer for retry support
+                  // ReadableStream can only be read once, so we need to buffer it
+                  let requestBodyBuffer = null;
                   if (
                     ['POST', 'PUT', 'PATCH', 'DELETE'].includes(request.method) &&
                     (isGit || isGitLFS || isDocker || isAI || isHF)
                   ) {
-                    fetchOptions.body = request.body;
+                    try {
+                      requestBodyBuffer = await request.arrayBuffer();
+                    } catch (e) {
+                      console.warn('Failed to read request body:', e);
+                    }
                   }
 
                   // Cast headers to Headers for proper typing
@@ -286,6 +292,11 @@ async function handleRequest(request, env, ctx) {
                         signal: controller.signal
                       };
 
+                      // FIX: Use buffered body for each retry attempt
+                      if (requestBodyBuffer) {
+                        finalFetchOptions.body = requestBodyBuffer;
+                      }
+
                       // Special handling for Docker redirects to avoid leaking Auth headers to S3 (blobs)
                       if (isDocker) {
                         finalFetchOptions.redirect = 'manual';
@@ -345,15 +356,13 @@ async function handleRequest(request, env, ctx) {
                         const location = response.headers.get('Location');
                         if (location) {
                           // Fetch the new location without Authorization header
-                          // Cloudflare Workers fetch should follow this automatically if we used 'follow',
-                          // but we used 'manual' to strip headers.
                           const redirectHeaders = new Headers(finalFetchOptions.headers);
                           redirectHeaders.delete('Authorization');
 
                           response = await fetch(location, {
                             ...finalFetchOptions,
                             headers: redirectHeaders,
-                            redirect: 'follow' // Follow subsequent redirects normally
+                            redirect: 'follow'
                           });
                         }
                       }
